@@ -1,11 +1,6 @@
 function [a1, a2, u1s, u2s] = findNEcont(x, Amax1, Amax2, lambda_1, lambda_2, model)
-    [L, q, rho] = graphDesign();
-    L = model.L;
-    q = model.q;
-    rho = model.rho;
     Tk = model.Ts; % sampling time for campaigns
-    N = length(rho);
-    rhos = (ones(1, N) * exp(-L * Tk))';
+    rhos = (model.rho)';
     N = length(rhos);
     a1 = rand(N,1);
     a2 = rand(N,1);

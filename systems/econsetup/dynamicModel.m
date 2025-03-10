@@ -1,6 +1,5 @@
 function [x_plus, x_continuous] = dynamicModel(x_0, model)
     L = model.L;
-    q = model.q;
     rho = model.rho;
 
     Ts = model.Ts / 10;

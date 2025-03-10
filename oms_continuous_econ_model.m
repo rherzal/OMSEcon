@@ -26,7 +26,8 @@ model_max.min_budget = 10;
 model_max.lambda_1 = 0.2;
 model_max.lambda_2 = 0.8;
 model_max.Ts = 1;
-[model_max.L, model_max.q, model_max.rho] = graphDesign();
+model_max.L = graphDesign();
+model_max.rho = ones(1, parameters.state_size) * expm(- model_max.L .* model_max.Ts);
 
 % Define the model for the minimizer marketer
 model_min = struct;
@@ -37,7 +38,8 @@ model_min.min_budget = model_max.min_budget;
 model_min.lambda_1 = model_max.lambda_1;
 model_min.lambda_2 = model_max.lambda_2;
 model_min.Ts = model_max.Ts;
-[model_min.L, model_min.q, model_min.rho] = graphDesign();
+model_min.L = graphDesign();
+model_min.rho = model_max.rho;
 
 
 
