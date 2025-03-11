@@ -4,7 +4,7 @@ close all; clear all; clc; tic
 cfg = struct;
 cfg.problem = 'econsetup_problem';
 cfg.model_params = {};
-cfg.gamma = 0.8;
+cfg.gamma = 0.7;
 cfg.planparam.n = 50;
 
 parameters = struct;
@@ -12,9 +12,9 @@ parameters.state_size = 5;
 parameters.max_tree_size = 36000;
 parameters.max_horizon = 15;
 parameters.M = 3;
-parameters.Lv = 5;
+parameters.Lv = 3;
 parameters.gamma = cfg.gamma;
-parameters.budget = 5000;
+parameters.budget = 500 ;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
@@ -47,8 +47,8 @@ model_min.rho = model_max.rho;
 moves = 5;
 % initial_state = 0.5 .* ones(5, 1);
 % initial_state = [0.8147; 0.9058; 0.1270; 0.9134; 0.6324];
-initial_state = rand(5, 1) .* 0.3;
-% initial_state = rand(5, 1) .* 0.3 + 0.7;
+% initial_state = rand(5, 1) .* 0.3;
+initial_state = rand(5, 1) .* 0.3 + 0.7;
 % initial_state = rand(5, 1);
 current_state = initial_state;
 
@@ -139,10 +139,10 @@ hold off;
 subplot(2, 1, 2);
 title('Total Budget Allocated')
 hold on;
-stairs(Zstar_max * model_max.max_budget);
-stairs(Zstar_min * model_max.min_budget);
+stairs(Zstar_max);
+stairs(Zstar_min);
 legend('max_marketer', 'min_marketer');
-ylim([0, max(model_max.max_budget, model_max.min_budget)]);
+ylim([0, 1]);
 xlim([1, length(Zstar_max)]);
 xlabel('Campaign');
 ylabel('Total Budget');
