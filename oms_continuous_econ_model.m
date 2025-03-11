@@ -14,7 +14,7 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 6;
 parameters.gamma = cfg.gamma;
-parameters.budget = 500;
+parameters.budget = 1000;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
@@ -23,9 +23,9 @@ model_max.id = 'max';
 model_max.fun = 'maximizer_mdp';
 model_max.max_budget = 10;
 model_max.min_budget = 10;
-model_max.lambda_1 = 0.2;
-model_max.lambda_2 = 0.8;
-model_max.Ts = 1;
+model_max.lambda_1 = 0.4;
+model_max.lambda_2 = 0.9 ;
+model_max.Ts = 0.1;
 model_max.L = graphDesign();
 model_max.rho = ones(1, parameters.state_size) * expm(- model_max.L .* model_max.Ts);
 
@@ -44,8 +44,9 @@ model_min.rho = model_max.rho;
 
 
 % Trajectory initialization:
-moves = 12;
-initial_state = 0.5 .* ones(5, 1);
+moves = 10;
+% initial_state = 0.5 .* ones(5, 1);
+initial_state = [0.8147; 0.9058; 0.1270; 0.9134; 0.6324];
 % initial_state = rand(5, 1);
 current_state = initial_state;
 
@@ -110,7 +111,7 @@ continuous_x0 = initial_state;
 budget_distribution_1 = [];
 budget_distribution_2 = [];
 for i = 1:moves
-    [a_1, a_2, u1, u2] = findNEcont(continuous_x0, inverse_norm_u(Zstar_max(i), model_max), inverse_norm_w(Zstar_min(i), model_min), model_max.lambda_1, model_max.lambda_2, model_max);
+    [a_1, a_2, u1, u2] = findNEcont(continuous_x0, inverse_norm_u(Zstar_max(i), model_max), inverse_norm_w(Zstar_min(i), model_min), 0, 0, model_max);
     [x_plus, x_continuous] = dynamicModelWithActions(continuous_x0, a_1, a_2, model_max);
     budget_distribution_1 = [budget_distribution_1 a_1];
     budget_distribution_2 = [budget_distribution_2 a_2];
@@ -124,7 +125,7 @@ for i=1:parameters.state_size
     plot(continuous_x(i, :));
 end
 ylim([0, 1]);
-xlim([1, 120]);
+xlim([1, length(continuous_x)]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 hold off;
 
@@ -134,7 +135,7 @@ stairs(Zstar_max);
 stairs(Zstar_min);
 legend('max_marketer', 'min_marketer');
 ylim([0, 1]);
-xlim([1, 12]);
+xlim([1, length(Zstar_max)]);
 hold off;
 
 figure;
@@ -143,7 +144,7 @@ hold on;
 for i=1:parameters.state_size
     stairs(budget_distribution_1(i, :));
 end
-xlim([1, 12]);
+xlim([1, length(budget_distribution_1)]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 hold off;
 title('max agent');
@@ -153,7 +154,7 @@ hold on;
 for i=1:parameters.state_size
     stairs(budget_distribution_2(i, :));
 end
-xlim([1, 12]);
+xlim([1, length(budget_distribution_1)]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 title('min agent')
 hold off;
