@@ -14,17 +14,17 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 6;
 parameters.gamma = cfg.gamma;
-parameters.budget = 1000;
+parameters.budget = 500;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
 model_max = struct;
 model_max.id = 'max';
 model_max.fun = 'maximizer_mdp';
-model_max.max_budget = 10;
-model_max.min_budget = 10;
+model_max.max_budget = 1;
+model_max.min_budget = 1;
 model_max.lambda_1 = 0.4;
-model_max.lambda_2 = 0.9 ;
+model_max.lambda_2 = 0.8;
 model_max.Ts = 0.1;
 model_max.L = graphDesign();
 model_max.rho = ones(1, parameters.state_size) * expm(- model_max.L .* model_max.Ts);
@@ -120,22 +120,28 @@ for i = 1:moves
 end
 
 subplot(2, 1, 1);
+title('Agents state');
 hold on;
 for i=1:parameters.state_size
     plot(continuous_x(i, :));
 end
 ylim([0, 1]);
 xlim([1, length(continuous_x)]);
+xlabel('Continuous Time');
+ylabel('Opinion');
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 hold off;
 
 subplot(2, 1, 2);
+title('Total Budget Allocated')
 hold on;
 stairs(Zstar_max);
 stairs(Zstar_min);
 legend('max_marketer', 'min_marketer');
 ylim([0, 1]);
 xlim([1, length(Zstar_max)]);
+xlabel('Campaign');
+ylabel('Total Budget');
 hold off;
 
 figure;
@@ -147,7 +153,9 @@ end
 xlim([1, length(budget_distribution_1)]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 hold off;
-title('max agent');
+title('max agent budget distribution');
+xlabel('Campaign');
+ylabel('Budget per Agent');
 
 figure;
 hold on;
@@ -156,8 +164,9 @@ for i=1:parameters.state_size
 end
 xlim([1, length(budget_distribution_1)]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
-title('min agent')
-hold off;
+title('min agent budget distribution');
+xlabel('Campaign');
+ylabel('Budget per Agent');hold off;
 
 toc
 
