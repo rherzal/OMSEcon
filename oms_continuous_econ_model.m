@@ -8,7 +8,7 @@ cfg.gamma = 0.8;
 cfg.planparam.n = 50;
 
 parameters = struct;
-parameters.state_size = 5;
+parameters.state_size = 50;
 parameters.max_tree_size = 36000;
 parameters.max_horizon = 15;
 parameters.M = 3;
@@ -50,7 +50,8 @@ moves = 10;
 % initial_state = rand(5, 1) .* 0.3;
 % initial_state = rand(5, 1) .* 0.3 + 0.7;
 % initial_state = rand(5, 1);
-initial_state = [0.2447; 0.0787; 0.2019; 0.0560; 0.1798];
+% initial_state = [0.2447; 0.0787; 0.2019; 0.0560; 0.1798];
+initial_state = 0.3 .* rand(parameters.state_size,1);
 current_state = initial_state;
 
 t = [0:model_max.Ts/10:moves*model_max.Ts];
@@ -59,11 +60,11 @@ current_reward_max = 0;
 current_reward_min = 0;
 
 % Final trajectory and rewards:
-Xstar_max = zeros(5, moves);
+Xstar_max = zeros(parameters.state_size, moves);
 Rstar_max = zeros(1, moves);
 Zstar_max = zeros(1, moves);
 
-Xstar_min = zeros(5, moves);
+Xstar_min = zeros(parameters.state_size, moves);
 Rstar_min = zeros(1, moves);
 Zstar_min = zeros(1, moves);
 
