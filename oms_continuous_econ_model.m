@@ -44,11 +44,11 @@ model_min.rho = model_max.rho;
 
 
 % Trajectory initialization:
-moves = 5;
+moves = 10;
 % initial_state = 0.5 .* ones(5, 1);
 % initial_state = [0.8147; 0.9058; 0.1270; 0.9134; 0.6324];
-initial_state = rand(5, 1) .* 0.3;
-% initial_state = rand(5, 1) .* 0.3 + 0.7;
+% initial_state = rand(5, 1) .* 0.3;
+initial_state = rand(5, 1) .* 0.3 + 0.7;
 % initial_state = rand(5, 1);
 current_state = initial_state;
 
