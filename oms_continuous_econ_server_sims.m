@@ -15,17 +15,17 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 500;
+parameters.budget = 200;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
 model_max = struct;
 model_max.id = 'max';
 model_max.fun = 'maximizer_mdp';
-model_max.max_budget = 1;
-model_max.min_budget = 1;
-model_max.lambda_1 = 0.8;
-model_max.lambda_2 = 0.8;
+model_max.max_budget = 5;
+model_max.min_budget = 5;
+model_max.lambda_1 = 0.7;
+model_max.lambda_2 = 0.7;
 model_max.Ts = 1;
 model_max.L = graphDesign();
 model_max.rho = ones(1, parameters.state_size) * expm(- model_max.L .* model_max.Ts);
@@ -51,7 +51,8 @@ moves = 10;
 % initial_state = rand(5, 1) .* 0.3 + 0.7;
 % initial_state = rand(5, 1);
 
-initial_state = 0.3 .* rand(50,1);
+initial_state = 0.3 .* rand(parameters.state_size,1);
+initial_state_copy = initial_state;
 current_state = initial_state;
 
 t = [0:model_max.Ts/10:moves*model_max.Ts];
@@ -125,9 +126,9 @@ for i = 1:moves
     continuous_x0 = continuous_x(:, end);
 end
 
-total_min_budget = sum(model_max.min_budget .* Zstar_min);
-total_max_budget = sum(model_max.max_budget .* Zstar_max);
-save('experiments_workspace\optimal-optimal.mat');
+total_min_budget = sum(Zstar_min);
+total_max_budget = sum(Zstar_max);
+save('experiments_workspace_50_agents\optimal-optimal.mat');
 
 %% Init Optimal-Dumb
 close all; clc; tic
@@ -146,17 +147,17 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 500;
+parameters.budget = 200;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
 model_max = struct;
 model_max.id = 'max';
 model_max.fun = 'maximizer_mdp';
-model_max.max_budget = 1;
-model_max.min_budget = 1;
-model_max.lambda_1 = 0.8;
-model_max.lambda_2 = 0.8;
+model_max.max_budget = 5;
+model_max.min_budget = 5;
+model_max.lambda_1 = 0.7;
+model_max.lambda_2 = 0.7;
 model_max.Ts = 1;
 model_max.L = graphDesign();
 model_max.rho = ones(1, parameters.state_size) * expm(- model_max.L .* model_max.Ts);
@@ -182,7 +183,7 @@ moves = 10;
 % initial_state = rand(5, 1) .* 0.3 + 0.7;
 % initial_state = rand(5, 1);
 
-initial_state = 0.3 .* rand(50,1);
+initial_state = initial_state_copy;
 current_state = initial_state;
 
 t = [0:model_max.Ts/10:moves*model_max.Ts];
@@ -253,7 +254,7 @@ for i = 1:moves
 end
 
 
-save('experiments_workspace\optimal-dumb.mat');
+save('experiments_workspace_50_agents\optimal-dumb.mat');
 
 %% Init Dumb-Dumb
 
@@ -271,17 +272,17 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 500;
+parameters.budget = 200;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
 model_max = struct;
 model_max.id = 'max';
 model_max.fun = 'maximizer_mdp';
-model_max.max_budget = 1;
-model_max.min_budget = 1;
-model_max.lambda_1 = 0.8;
-model_max.lambda_2 = 0.8;
+model_max.max_budget = 5;
+model_max.min_budget = 5;
+model_max.lambda_1 = 0.7;
+model_max.lambda_2 = 0.7;
 model_max.Ts = 1;
 model_max.L = graphDesign();
 model_max.rho = ones(1, parameters.state_size) * expm(- model_max.L .* model_max.Ts);
@@ -307,7 +308,7 @@ moves = 10;
 % initial_state = rand(5, 1) .* 0.3 + 0.7;
 % initial_state = rand(5, 1);
 
-initial_state = 0.3 .* rand(50, 1);
+initial_state = initial_state_copy;
 current_state = initial_state;
 
 t = [0:model_max.Ts/10:moves*model_max.Ts];
@@ -375,4 +376,4 @@ for i = 1:moves
 end
 
 
-save('experiments_workspace\dumb-dumb.mat');
+save('experiments_workspace_50_agents\dumb-dumb.mat');
