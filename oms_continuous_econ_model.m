@@ -144,8 +144,8 @@ hold on;
 stairs(Zstar_max * model_max.max_budget);
 stairs(Zstar_min * model_max.min_budget);
 legend('marketer_{max}', 'marketer_{min}');
-ylim([0, max(model_max.max_budget, model_max.min_budget)]);
-xlim([1, length(Zstar_max)]);
+ylim([0, model_max.max_budget]);
+xlim([1, moves]);
 xlabel('Campaign');
 ylabel('Total Budget');
 hold off;
@@ -159,8 +159,8 @@ hold on;
 stairs(Rstar_max);
 stairs(Rstar_min);
 legend('R_{max}', 'R_{min}');
-xlim([1, length(Zstar_max)]);
-ylim([-4, 4]);
+xlim([1, moves]);
+% ylim([-4, 4]);
 xlabel('Campaign');
 ylabel('Reward');
 title(['sum reward_{max}: ', num2str(R_sum_max), ' sum reward_{min}: ', num2str(R_sum_min)])
@@ -174,7 +174,7 @@ hold on;
 for i=1:parameters.state_size
     stairs(budget_distribution_1(i, :));
 end
-xlim([1, length(budget_distribution_1)]);
+xlim([1, moves]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 hold off;
 title('max agent budget distribution');
@@ -186,7 +186,7 @@ hold on;
 for i=1:parameters.state_size
     stairs(budget_distribution_2(i, :));
 end
-xlim([1, length(budget_distribution_1)]);
+xlim([1, moves]);
 legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 title('min agent budget distribution');
 xlabel('Campaign');
