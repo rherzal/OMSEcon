@@ -59,6 +59,9 @@ h.NodeFontSize = 13;
 fontsize(gca, 13, "points");
 set(gca, 'XTick', [], 'XTickLabel', []);
 set(gca, 'YTick', [], 'YTickLabel', []);
+set(gca,'Visible','off')
+fig = gcf;
+fig.Position(3:4) = fig.Position(3:4) .* 0.85;
 
 %% 
 
