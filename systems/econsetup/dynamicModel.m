@@ -2,7 +2,7 @@ function [x_plus, x_continuous] = dynamicModel(x_0, model)
     L = model.L;
     rho = model.rho;
 
-    Ts = model.Ts / 10;
+    Ts = model.Ts / 100;
     Tf = model.Ts;
     t = [Ts:Ts:Tf];
     N = length(t);
