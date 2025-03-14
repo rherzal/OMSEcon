@@ -1,4 +1,4 @@
-5%% Init Optimal-Optimalsend
+5%% Init Optimal-Optimalsendmoves = 
 close all; clear all; clc; tic
 
 % Define some config for the problem
