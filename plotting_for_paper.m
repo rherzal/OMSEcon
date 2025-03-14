@@ -43,7 +43,7 @@ fig.Position(3:4) = fig.Position(3:4) .* 0.85;
 
 %%
 figure;
-A = [0 1 0 0 1;
+    A = [0 1 0 0 1;
          0 0 1 0 0;
          1 1 0 0 1;
          1 1 1 0 0;
@@ -51,7 +51,16 @@ A = [0 1 0 0 1;
 
 G = digraph(A');
 h = plot(G);
-h.MarkerSize = 7;
+
+L = graphDesign();
+rho = ones(1, 5) * expm(-L * 1)
+
+% h.MarkerSize = 7;
+h.MarkerSize = 8 .* rho;
+
+for i = 1:5
+    h.NodeLabel{i} = [num2str(i), ', \alpha_', num2str(i), ' = ', num2str(rho(i))];
+end
 h.LineWidth = 0.7;
 h.ArrowSize = 10;
 h.NodeColor = 'r';
@@ -71,7 +80,7 @@ for i=1:parameters.state_size
     stairs([0:moves], [budget_distribution_1(i, :) budget_distribution_1(i, end)] );
 end
 xlim([0, moves]);
-% legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
+legend('$a_{1, 1}$', '$a_{1, 2}$', '$a_{1, 3}$', '$a_{1, 4}$', '$a_{1, 5}$', 'Interpreter', 'latex');
 fontsize(gca, 13, "points");
 hold off;
 ylabel('$a_{1, o}(t)$', 'Interpreter','latex');
