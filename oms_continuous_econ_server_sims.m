@@ -15,7 +15,7 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 1000;
+parameters.budget = 5000;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
@@ -146,7 +146,7 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 1000;
+parameters.budget = 5000;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
@@ -256,7 +256,7 @@ end
 save('experiments_workspace_paper_5agents\optimal-dumb.mat');
 
 %% Init Dumb-Dumb
-
+close all; clc; tic
 % Define some config for the problem
 cfg = struct;
 cfg.problem = 'econsetup_problem';
@@ -271,7 +271,7 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 1000;
+parameters.budget = 5000;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
@@ -394,7 +394,7 @@ parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 1000;
+parameters.budget = 5000;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
