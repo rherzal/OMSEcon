@@ -1,4 +1,4 @@
-
+t = [0:model_max.Ts/100:moves*model_max.Ts];
 continuous_x = initial_state;
 continuous_x0 = initial_state;
 budget_distribution_1 = [];
