@@ -115,7 +115,7 @@ ylim([0, 1]);
 xlim([0, moves .* model_max.Ts]);
 xlabel('$t$', 'Interpreter','latex');
 ylabel('$x_o(t)$', 'Interpreter','latex');
-% legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
+legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$x_5$', 'Interpreter', 'latex');
 fontsize(gca, 13, "points");
 hold off;
 
