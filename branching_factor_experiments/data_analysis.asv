@@ -1,0 +1,9 @@
+N = length(algorithm_states_max);
+
+for i = 1:N
+    max_depth = max(algorithm_states_max{i}.depth);
+    for j = 1:max_depth
+        idx = find(algorithm_states_max{i}.depth == j);
+        
+    end
+end

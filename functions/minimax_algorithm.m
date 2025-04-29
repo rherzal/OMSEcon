@@ -1,4 +1,4 @@
-function best_move = minimax_algorithm(parent, children, leaf, dim, upperbound, lowerbound, Ki, depth, minimax, z, x, r, parameters, model)
+function [best_move, algorithm_state] = minimax_algorithm(parent, children, leaf, dim, upperbound, lowerbound, Ki, depth, minimax, z, x, r, parameters, model)
 
     budget = parameters.budget;
     discount_array = parameters.discounted_array;
@@ -84,5 +84,23 @@ function best_move = minimax_algorithm(parent, children, leaf, dim, upperbound, 
     best_move = z(best_box, 1);
     
     % plot_tree(children, leaf, lowerbound, upperbound, depth, minimax);
+
+    algorithm_state = struct;
+    algorithm_state.parent = parent;
+    algorithm_state.children = children;
+    algorithm_state.leaf = leaf;
+    algorithm_state.dim = dim;
+    algorithm_state.upperbound = upperbound;
+    algorithm_state.lowerbourd = lowerbound;
+    algorithm_state.Ki = Ki;
+    algorithm_state.depth = depth;
+    algorithm_state.minimax = minimax;
+    algorithm_state.z = z;
+    algorithm_state.x = x;
+    algorithm_state.parameters = r;
+    algorithm_state.model = model;
+
+
+
 end
 

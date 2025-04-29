@@ -9,12 +9,12 @@ cfg.planparam.n = 50;
 
 parameters = struct;
 parameters.state_size = 5;
-parameters.max_tree_size = 36000;
+parameters.max_tree_size = 36000; 
 parameters.max_horizon = 15;
 parameters.M = 3;
 parameters.Lv = 5;
 parameters.gamma = cfg.gamma;
-parameters.budget = 5000;
+parameters.budget = 10000;
 parameters.discounted_array = parameters.gamma .^ (0 : parameters.max_horizon - 1);
 
 % Define the model for the maximizer marketer
@@ -67,6 +67,10 @@ Xstar_min = zeros(5, moves);
 Rstar_min = zeros(1, moves);
 Zstar_min = zeros(1, moves);
 
+algorithm_states_max = cell(moves,1);
+algorithm_states_min = cell(moves,1);
+
+
 %%
 
 for move = 1:moves
@@ -91,9 +95,12 @@ for move = 1:moves
     depth_min(1) = 0;
 
     % Tree expansion:
-    best_move_max = minimax_algorithm(parent_max, children_max, leaf_max, dim_max, upperbound_max, lowerbound_max, Ki_max, depth_max, minimax_max, z_max, x_max, r_max, parameters, model_max);
-    best_move_min = minimax_algorithm(parent_min, children_min, leaf_min, dim_min, upperbound_min, lowerbound_min, Ki_min, depth_min, minimax_min, z_min, x_min, r_min, parameters, model_min);
-    
+    [best_move_max, algorithm_states_max{move}] = minimax_algorithm(parent_max, children_max, leaf_max, dim_max, upperbound_max, lowerbound_max, Ki_max, depth_max, minimax_max, z_max, x_max, r_max, parameters, model_max);
+    [best_move_min, algorithm_states_min{move}] = minimax_algorithm(parent_min, children_min, leaf_min, dim_min, upperbound_min, lowerbound_min, Ki_min, depth_min, minimax_min, z_min, x_min, r_min, parameters, model_min);
+ 
+
+
+
     Zstar_max(move) = best_move_max;
     Zstar_min(move) = best_move_min;
     
